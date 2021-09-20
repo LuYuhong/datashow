@@ -10,5 +10,9 @@ const routers = [
     path: '/',
     component: index
   },
+  {
+    path: '/login',
+    component: login => require(['@/components/Login'], login)
+  }
 ]
 export default routers
