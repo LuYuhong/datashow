@@ -3,10 +3,10 @@
         <el-card class="box-card">
             <el-form label-width="120px">
                 <el-form-item label="用户名" style="width: 80%">
-                <el-input v-model="form.account"></el-input>
+                <el-input v-model="form.account" autofocus></el-input>
                 </el-form-item>
                 <el-form-item label="昵称" style="width: 80%">
-                <el-input v-model="form.password"></el-input>
+                <el-input v-model="form.password" @keyup.enter.native="userLogin"></el-input>
                 </el-form-item>
             </el-form>
             <el-button @click="userLogin">登陆</el-button>
@@ -26,8 +26,8 @@ export default {
     data() {
         return {
             form: {
-                account: '',
-                password: ''
+                account: 'admin',
+                password: '123'
             }
         }
     },
@@ -35,9 +35,9 @@ export default {
         userLogin() {
             console.log('userLogin', this.form);
             request.post('/api/login', this.form).then(res => {
-                console.log(res);
+                console.log('login res', res);
                 this.$router.replace('/');
-                // this.$bus.$emit('getContent', res.data.content);
+                this.$bus.$emit('getCurrentUser', res.data);
             });
         }
     }
